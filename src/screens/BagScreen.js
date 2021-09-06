@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, Text, View } from "react-native";
 import { useDispatch, useSelector } from 'react-redux';
-import { catchPokemon } from '../store/actions/bag';
 import PokemonCard from '../components/PokemonCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native'
 import EmptyBagView from '../components/EmptyBagView';
-import { getAsyncData } from '../utils/validation';
 
 const BagScreen = () =>{
     const  [caughtPokemons, setCaughtPokemons] = useState(useSelector((state) => state.Bag.caughtPokemons));
@@ -16,7 +14,6 @@ const BagScreen = () =>{
     const isFocused = useIsFocused()
 
     useEffect(() => {
-        console.log("BAG: ")
         caughtPokemons.length != 0 ? setIsEmpty(false) : setIsEmpty(true)
         getAsync()
     },[isFocused]);

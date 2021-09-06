@@ -8,6 +8,44 @@ export function isArrayEmpty(item) {
   return item === null || item === undefined || item.length === 0;
 }
 
+export function colorPicker(color){
+  switch(color){
+      case 'black': {
+          return '#2e2d2d'
+      }
+      case 'blue': {
+          return '#99ccff'
+      }
+      case 'brown': {
+          return '#cc6600'
+      }
+      case 'gray': {
+          return '#d6d6c2'
+      }
+      case 'green': {
+          return '#99ff99'
+      }
+      case 'pink': {
+          return '#ffb3ff'
+      }
+      case 'purple': {
+          return '#cc99ff'
+      }
+      case 'red': {
+          return '#ff9999'
+      }
+      case 'white': {
+          return '#cccccc'
+      }
+      case 'yellow': {
+          return '#ffd699'
+      }
+      default:{
+          return '#b3ffb3'
+      }
+  }
+}
+
 export async function getAsyncData(key) {
   try {
     const value = await AsyncStorage.getItem(key);

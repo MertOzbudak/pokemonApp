@@ -16,7 +16,6 @@ const PokedexScreen = () =>{
     //const [refresh, setRefresh] = useState(0);
 
     useEffect(() => {
-        console.log("pokedex: ")
         getAllPokemons();
     },[offset]);
 

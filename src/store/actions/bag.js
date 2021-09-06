@@ -5,28 +5,46 @@ export const DELETE_FAV_POKEMON = 'DELETE_FAV_POKEMON'
 export const FETCH_DATA_FROM_ASYNC = 'FETCH_DATA_FROM_ASYNC'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { setAsyncData, removeAsyncData } from '../../utils/validation';
 
-//try catch
 export const catchPokemon = (pokemon, id, url) => async (dispatch)  => {
-    //setAsyncData('pokeballs', pokemon);
-    await dispatch({ type: CATCH_POKEMON, pokeball: {name: pokemon, id: id, url: url}})
+    try{
+        await dispatch({ type: CATCH_POKEMON, pokeball: {name: pokemon, id: id, url: url}})
+    }catch(error){
+        throw error
+    }
 }
 
 export const releasePokemon = (id) => async(dispatch) => {
-    await dispatch({type: RELEASE_POKEMON, pokeball: {id: id}})
+    try{
+        await dispatch({type: RELEASE_POKEMON, pokeball: {id: id}})
+    }catch(error){
+        throw error
+    }
 }
 
 export const addFavouriteCaughtPokemon = (id) => async(dispatch) => {
-    await dispatch({type: ADD_FAV_POKEMON, pokeball: {id: id}})
+    try{
+        await dispatch({type: ADD_FAV_POKEMON, pokeball: {id: id}})
+    }catch(error){
+        throw error
+    }
+    
 }
 
 export const deleteFavouriteCaughtPokemon = (id) => async(dispatch) => {
-    await dispatch({type: DELETE_FAV_POKEMON, pokeball: {id: id}})
+    try{
+        await dispatch({type: DELETE_FAV_POKEMON, pokeball: {id: id}})
+    }catch(error){
+        throw error
+    }
 }
 
 export const fetchDataFromAsync = () => async (dispatch)  => {
-    var pokeballs = JSON.parse(await AsyncStorage.getItem('pokeballs'));
-    var favourites = JSON.parse(await AsyncStorage.getItem('favourites'));
-    await dispatch({type: FETCH_DATA_FROM_ASYNC, pokeball: pokeballs, favourites:favourites})
+    try{
+        var pokeballs = JSON.parse(await AsyncStorage.getItem('pokeballs'));
+        var favourites = JSON.parse(await AsyncStorage.getItem('favourites'));
+        await dispatch({type: FETCH_DATA_FROM_ASYNC, pokeball: pokeballs, favourites:favourites})
+    }catch(error){
+        throw error
+    }
 }

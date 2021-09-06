@@ -45,7 +45,6 @@ const DetailScreen = (props) =>{
     };
 
     useEffect(() => {
-        console.log("DETaIL: ")
         getPokemonDetailsByID();
     },[isCaughted]);
 
@@ -77,7 +76,7 @@ const DetailScreen = (props) =>{
         { isLoading ? 
             <LoadingView text={"Loading..."}/>
         : 
-            <View style={{backgroundColor: pokemonDetails.color == 'white' ? 'gray' : pokemonDetails.color, flex: 1}}>
+            <View style={{backgroundColor: pokemonDetails.color.toString(), flex: 1}}>
                 <View testID={"HeaderButtons"} style={styles.headerButtonContainer}>
                     <View style={{flex:1, alignItems:'flex-start'}}>
                         <BackButton/>

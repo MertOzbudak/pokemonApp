@@ -53,7 +53,6 @@ const RootNavigator = () => {
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
     useEffect(() => {
-        console.log("initialize")
         getColor();
         fetchDataFromAsyncStorage()
     },[isEnabled]);

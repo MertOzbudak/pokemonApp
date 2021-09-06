@@ -1,3 +1,5 @@
+import { colorPicker } from '../../utils/validation'
+
 const initialState = {
     pokemons: [],
     details: {
@@ -20,9 +22,7 @@ export default (state = initialState, action) =>{
         payload, 
         other 
     } = action
-
     
-
     switch (type){
         case 'GET_POKEMONS': {
             return{
@@ -33,7 +33,7 @@ export default (state = initialState, action) =>{
         case 'GET_POKEMON_DETAILS': {
             
             state.details.name = payload.names.filter(it => it.language.name == 'en').map(it=>it.name)[0]
-            state.details.color = payload.color.name
+            state.details.color = colorPicker(payload.color.name)
             state.details.genera = payload.genera.filter(it => it.language.name == 'en').map(it=>it.genus)[0]
             state.details.eggGroups = payload .egg_groups
             state.details.info = payload.flavor_text_entries.filter(it => it.version.name == 'emerald').map(it=>it.flavor_text)[0]
