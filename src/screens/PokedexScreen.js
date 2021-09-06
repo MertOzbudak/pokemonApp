@@ -8,6 +8,7 @@ import PokemonCard from '../components/PokemonCard';
 
 const PokedexScreen = () =>{
     const pokemons = useSelector((state) => state.Pokemons.pokemons);
+    const length = useSelector((state) => state.Pokemons.count);
     const themeColor = useSelector((state) => state.Settings.color);
     const [offset, setOffset] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +40,8 @@ const PokedexScreen = () =>{
 
     const nextData = async() => {
         setIsLoading(true)
-        setOffset(offset + 20);
+        if(offset < length)
+            setOffset(offset + 20);
         await dispatch(getPokemons(offset));
         setIsLoading(false)
     };
@@ -48,9 +50,9 @@ const PokedexScreen = () =>{
 
         setIsLoading(false)
 
-        if(offset > 0)
+        if(offset > 0){
             setOffset(offset - 20);
-
+        }
         await dispatch(getPokemons(offset));
 
         setIsLoading(true)
@@ -64,7 +66,7 @@ const PokedexScreen = () =>{
     };*/
 
     const renderFooter = () => {
-        return (<FooterButtons next={()=>nextData()} prev={()=>prevData()} offset={offset}/>);
+        return (<FooterButtons next={()=>nextData()} prev={()=>prevData()} offset={offset} length={length}/>);
     };
 
     return (

@@ -1,4 +1,4 @@
-import { colorPicker } from '../../utils/validation'
+import { colorPicker } from '../../utils/helper'
 
 const initialState = {
     pokemons: [],
@@ -28,10 +28,11 @@ export default (state = initialState, action) =>{
             return{
                 ...state,
                 pokemons: payload.results,
+                count: payload.count
             }
         }
         case 'GET_POKEMON_DETAILS': {
-            
+           if( payload  != "Not Found" ){ 
             state.details.name = payload.names.filter(it => it.language.name == 'en').map(it=>it.name)[0]
             state.details.color = colorPicker(payload.color.name)
             state.details.genera = payload.genera.filter(it => it.language.name == 'en').map(it=>it.genus)[0]
@@ -41,7 +42,14 @@ export default (state = initialState, action) =>{
             state.details.type = other.types
             state.details.height = other.height
             state.details.weight = other.weight
-
+        }else{
+            state.details.type = other.types
+            state.details.name = other.name
+            state.details.height = other.height
+            state.details.weight = other.weight
+            state.details.info = "There is not much information about"
+            state.details.color = colorPicker('mavi')
+        }
             return{
                 ...state,
                 details: state.details,

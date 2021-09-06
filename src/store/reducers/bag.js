@@ -1,5 +1,5 @@
 import { CATCH_POKEMON, RELEASE_POKEMON, ADD_FAV_POKEMON, DELETE_FAV_POKEMON, FETCH_DATA_FROM_ASYNC } from '../actions/bag'
-import { setAsyncData, removeAsyncData } from '../../utils/validation';
+import { setAsyncData, removeAsyncData } from '../../utils/helper';
 
 const initialState = {
     pokemon: {name:'', id:'', url:''},

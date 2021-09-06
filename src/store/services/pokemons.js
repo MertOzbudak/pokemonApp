@@ -23,8 +23,8 @@ const getPokemonDetailsById = async(id) =>{
     try{
        
        let response = await fetch(ServiceURL.GET_POKEMON_DETAIL + id );
-
-       response = await response.json();
+       
+       response = response.status == 200 ? await response.json() : "Not Found";
        
        return response
 

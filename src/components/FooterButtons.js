@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Dimensions, StyleSheet, Text } from 'react-native';
 import ArrowButton from '../components/ArrowButton';
 
-export default function FooterButtons({next, prev, offset}) {
+export default function FooterButtons({next, prev, offset, length}) {
     
       return (
         <View style={styles.container}>
@@ -19,6 +19,7 @@ export default function FooterButtons({next, prev, offset}) {
             <View style={styles.right}>
                 <ArrowButton 
                     direction={"right"} 
+                    disability={offset < length-20 ? false : true} 
                     action={()=>next()}
                 />
             </View>

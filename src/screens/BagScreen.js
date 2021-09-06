@@ -7,9 +7,10 @@ import { useIsFocused } from '@react-navigation/native'
 import EmptyBagView from '../components/EmptyBagView';
 
 const BagScreen = () =>{
-    const  [caughtPokemons, setCaughtPokemons] = useState(useSelector((state) => state.Bag.caughtPokemons));
+    const  caughtPokemons = useSelector((state) => state.Bag.caughtPokemons);
     const themeColor = useSelector((state) => state.Settings.color);
     const [isEmpty, setIsEmpty] = useState(true);
+    //const [isEmpty, setIsEmpty] = useState(true);
     const renderItem = ({ item }) =>  <PokemonCard item = {item}/>;  
     const isFocused = useIsFocused()
 
@@ -19,8 +20,7 @@ const BagScreen = () =>{
     },[isFocused]);
 
     const getAsync= async()=>{
-        var pokeballs = JSON.parse(await AsyncStorage.getItem('pokeballs'));
-        
+        JSON.parse(await AsyncStorage.getItem('pokeballs'));
     }
 
     return ( 
@@ -35,6 +35,7 @@ const BagScreen = () =>{
                     keyExtractor={item=>item.id}
                     numColumns={2}
                     style={{backgroundColor: themeColor == 'black' ? '#333231': 'rgb(245, 245, 240)'}}
+                    
                 />
         }
         </>
