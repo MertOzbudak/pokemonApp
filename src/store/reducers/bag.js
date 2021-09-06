@@ -1,4 +1,5 @@
-import { CATCH_POKEMON, RELEASE_POKEMON, ADD_FAV_POKEMON, DELETE_FAV_POKEMON } from '../actions/bag'
+import { CATCH_POKEMON, RELEASE_POKEMON, ADD_FAV_POKEMON, DELETE_FAV_POKEMON, FETCH_DATA_FROM_ASYNC } from '../actions/bag'
+import { setAsyncData, removeAsyncData } from '../../utils/validation';
 
 const initialState = {
     pokemon: {name:'', id:'', url:''},
@@ -23,6 +24,7 @@ export default (state = initialState, action) => {
                 }
             }else{
                 state.caughtPokemons.push(state.pokemon)
+                setAsyncData('pokeballs', state.caughtPokemons)
                 return {
                     ...state,
                     pokemon: {...state.pokemon},
@@ -44,6 +46,7 @@ export default (state = initialState, action) => {
                     let ind = state.favPokemons.findIndex(item=>item.id == state.pokemon.id)
                     state.favPokemons.splice(ind, 1);
                 }
+                setAsyncData('pokeballs', state.caughtPokemons)
                 return {
                     ...state,
                     pokemon: {...state.pokemon},
@@ -72,6 +75,8 @@ export default (state = initialState, action) => {
                     }
                 }else{
                     state.favPokemons.push(state.pokemon)
+                    
+                    setAsyncData('favourites', state.favPokemons)
                     return {
                         ...state,
                         pokemon: {...state.pokemon},
@@ -89,7 +94,7 @@ export default (state = initialState, action) => {
                 //find item index to remove
                 let index = state.favPokemons.findIndex(item=>item.id == state.pokemon.id)
                 state.favPokemons.splice(index, 1);
-
+                setAsyncData('favourites', state.favPokemons)
                 return {
                     ...state,
                     pokemon: {...state.pokemon},
@@ -103,6 +108,17 @@ export default (state = initialState, action) => {
                     message: "Not Found"
                 }
             }
+        }
+        case FETCH_DATA_FROM_ASYNC: {
+            const pokemonsFromAsync = action.pokeball;
+            const favPokemonsFromAsync = action.favourites;
+           // state.caughtPokemons = [...pokemonsFromAsync]
+            return{
+                ...state,
+                caughtPokemons: pokemonsFromAsync == null ? [] :[...pokemonsFromAsync],
+                favPokemons: favPokemonsFromAsync == null || pokemonsFromAsync == null ? [] : [...favPokemonsFromAsync]
+            }
+            
         }
         default:
             return state;

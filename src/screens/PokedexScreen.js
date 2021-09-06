@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList } from "react-native";
 import { useDispatch, useSelector } from 'react-redux';
-import PokemonCard from '../components/PokemonCard';
 import { getPokemons } from '../store/actions/pokemons';
 import FooterButtons from '../components/FooterButtons';
 import LoadingView from '../components/LoadingView';
+import PokemonCard from '../components/PokemonCard';
 
 const PokedexScreen = () =>{
     const pokemons = useSelector((state) => state.Pokemons.pokemons);
     const themeColor = useSelector((state) => state.Settings.color);
-    const dispatch = useDispatch();
     const [offset, setOffset] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
-    
+    const dispatch = useDispatch();
     const renderItem = ({ item }) =>  <PokemonCard item = {item}/>;  
     //const [refresh, setRefresh] = useState(0);
 
     useEffect(() => {
+        console.log("pokedex: ")
         getAllPokemons();
     },[offset]);
 
@@ -46,11 +46,14 @@ const PokedexScreen = () =>{
     };
 
     const prevData = async() => {
+
         setIsLoading(false)
+
         if(offset > 0)
             setOffset(offset - 20);
 
         await dispatch(getPokemons(offset));
+
         setIsLoading(true)
     };
 

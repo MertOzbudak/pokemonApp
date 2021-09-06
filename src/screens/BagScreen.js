@@ -1,31 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, Text, View } from "react-native";
-import {useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import { catchPokemon } from '../store/actions/bag';
 import PokemonCard from '../components/PokemonCard';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native'
+import EmptyBagView from '../components/EmptyBagView';
+import { getAsyncData } from '../utils/validation';
 
 const BagScreen = () =>{
-    const caughtPokemons = useSelector((state) => state.Bag.caughtPokemons);
-    const favPokemons = useSelector((state) => state.Bag.favPokemons);
+    const  [caughtPokemons, setCaughtPokemons] = useState(useSelector((state) => state.Bag.caughtPokemons));
     const themeColor = useSelector((state) => state.Settings.color);
-    const pokemon = useSelector((state) => state.Bag.pokemon);
-    const mess = useSelector((state) => state.Bag.message);
+    const [isEmpty, setIsEmpty] = useState(true);
     const renderItem = ({ item }) =>  <PokemonCard item = {item}/>;  
+    const isFocused = useIsFocused()
 
-    /*useEffect(() => {
-        const getAllPokemons = async () => {
-            await dispatch(getPokemons());
-        };
-        getAllPokemons();
-    },[]);*/
+    useEffect(() => {
+        console.log("BAG: ")
+        caughtPokemons.length != 0 ? setIsEmpty(false) : setIsEmpty(true)
+        getAsync()
+    },[isFocused]);
 
-    return (
-        <FlatList
-            data = {caughtPokemons}
-            renderItem = {renderItem}
-            keyExtractor={item=>item.id}
-            numColumns={2}
-            style={{backgroundColor: themeColor == 'black' ? '#333231': 'white'}}
-        />
+    const getAsync= async()=>{
+        var pokeballs = JSON.parse(await AsyncStorage.getItem('pokeballs'));
+        
+    }
+
+    return ( 
+        <>
+        { 
+            isEmpty ? 
+                <EmptyBagView text={"Bag is Empty"} themeColor={themeColor}/>
+                : 
+                <FlatList
+                    data = {caughtPokemons}
+                    renderItem = {renderItem}
+                    keyExtractor={item=>item.id}
+                    numColumns={2}
+                    style={{backgroundColor: themeColor == 'black' ? '#333231': 'rgb(245, 245, 240)'}}
+                />
+        }
+        </>
     )
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, ImageBackground, ActivityIndicator, StyleSheet, Dimensions, StatusBar, Animated, ScrollView, TouchableOpacity } from "react-native";
+import { Text, View, ImageBackground, ActivityIndicator, StyleSheet, Dimensions} from "react-native";
 import { useDispatch, useSelector } from 'react-redux';
 import { getPokemonDetails } from '../store/actions/pokemons';
 import { catchPokemon, releasePokemon, addFavouriteCaughtPokemon, deleteFavouriteCaughtPokemon} from '../store/actions/bag';
@@ -12,11 +12,11 @@ import { FlatList } from 'react-native';
 import LoadingView from '../components/LoadingView';
 
 const DetailScreen = (props) =>{
+    const {id} = props.route.params;
     const pokemonDetails = useSelector((state) => state.Pokemons.details);
     const [isCaughted, setIsCaughted] = useState(useSelector((state) => state.Bag.caughtPokemons.some(item=>item.id == id)));
     const [isFavourite, setIsFavourite] = useState(useSelector((state) => state.Bag.favPokemons.some(item=>item.id == id)));
     const dispatch = useDispatch();
-    const {id} = props.route.params;
     const [isLoading, setIsLoading] = useState(true);
     const [imageloading, setImageLoading] = useState(true);
     const navigation = useNavigation();
@@ -45,6 +45,7 @@ const DetailScreen = (props) =>{
     };
 
     useEffect(() => {
+        console.log("DETaIL: ")
         getPokemonDetailsByID();
     },[isCaughted]);
 
@@ -55,6 +56,7 @@ const DetailScreen = (props) =>{
 
     const releasePokemonByID = async () => {
         await dispatch(releasePokemon(id));
+        setIsCaughted(false)
         navigation.goBack()
     };
 
@@ -138,7 +140,7 @@ const DetailScreen = (props) =>{
                             </View>
                         </View>
                         <View testID={"HeaderTypeAndGenera"} style={styles.headerTypeContainer}>
-                            <View style={{flex:0.8, alignItems:'flex-end', right:10 }}>
+                            {/*<View style={{flex:0.8, alignItems:'flex-end', right:10 }}>
                                 <Text>EggGroups:</Text>
                             </View>
                             <FlatList
@@ -147,7 +149,7 @@ const DetailScreen = (props) =>{
                                 keyExtractor={item=>item.name}
                                 horizontal={true}
                                 style={{flex:1}}
-                            />
+                            />*/}
                         </View>
                     </View>
                     

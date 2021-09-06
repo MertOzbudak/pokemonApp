@@ -10,6 +10,7 @@ import DetailScreen from '../screens/DetailScreen';
 import BagScreen from '../screens/BagScreen';
 import PokedexScreen from '../screens/PokedexScreen';
 import Logo from '../components/Logo';
+import { fetchDataFromAsync } from '../store/actions/bag';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -52,11 +53,18 @@ const RootNavigator = () => {
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
     useEffect(() => {
-        const getColor = async () => {
-            await dispatch(getThemeColor(isEnabled));
-        };
+        console.log("initialize")
         getColor();
+        fetchDataFromAsyncStorage()
     },[isEnabled]);
+
+    const getColor = async () => {
+        await dispatch(getThemeColor(isEnabled));
+    };
+
+    const fetchDataFromAsyncStorage = async () => {
+        await dispatch(fetchDataFromAsync());
+    };
 
     return(
         <NavigationContainer>

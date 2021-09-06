@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity, StyleSheet } from 'react-native';
-import { Icon } from 'react-native-elements';
-import { isStringEmpty } from '../utils/validation';
+import { Icon } from 'react-native-elements'
+import { isStringEmpty } from '../utils/validation'
 
 export default function ArrowButton({action, direction, disability}) {
     const isDisable = isStringEmpty(disability) ? false : disability
