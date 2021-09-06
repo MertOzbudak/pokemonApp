@@ -9,7 +9,7 @@ const getPokemons = async(offset) =>{
        
        let response = await fetch(ServiceURL.GET_POKEMONS+offset+"&limit=20");
    
-       response = await response.json();
+       response =  response.status == 200 ? await response.json() : 404;
        
        return response
 
@@ -24,7 +24,7 @@ const getPokemonDetailsById = async(id) =>{
        
        let response = await fetch(ServiceURL.GET_POKEMON_DETAIL + id );
        
-       response = response.status == 200 ? await response.json() : "Not Found";
+       response = response.status == 200 ? await response.json() : 404;
        
        return response
 
@@ -39,7 +39,7 @@ const getPokemonOtherDetailsById = async(id) =>{
        
        let response = await fetch(ServiceURL.GET_POKEMON_OTHER_DETAIL + id );
 
-       response = await response.json();
+       response = response.status == 200 ? await response.json() : 404;
        
        return response
 

@@ -10,10 +10,12 @@ import PokeButton from '../components/PokeButton';
 import {window} from '../utils/styles'
 import { FlatList } from 'react-native';
 import LoadingView from '../components/LoadingView';
+import ErrorView from '../components/ErrorView';
 
 const DetailScreen = (props) =>{
     const {id} = props.route.params;
     const pokemonDetails = useSelector((state) => state.Pokemons.details);
+    const hasError = useSelector((state) => state.Pokemons.hasDetailError);
     const [isCaughted, setIsCaughted] = useState(useSelector((state) => state.Bag.caughtPokemons.some(item=>item.id == id)));
     const [isFavourite, setIsFavourite] = useState(useSelector((state) => state.Bag.favPokemons.some(item=>item.id == id)));
     const dispatch = useDispatch();
@@ -21,6 +23,7 @@ const DetailScreen = (props) =>{
     const [imageloading, setImageLoading] = useState(true);
     const navigation = useNavigation();
 
+    console.log("sdad", hasError)
     const renderItem = ({ item }) =>  {
         return(
         <View style={{marginLeft:5, width:80, height:30, borderColor:'white', borderWidth:0.5, backgroundColor:'rgba(255,255,255,0.3)', borderRadius:10, justifyContent:'center', alignItems:'center'}}>
@@ -76,6 +79,9 @@ const DetailScreen = (props) =>{
         { isLoading ? 
             <LoadingView text={"Loading..."}/>
         : 
+        hasError ? 
+            <ErrorView text={"Something went wrong please try again !!"}/>
+            :
             <View style={{backgroundColor: pokemonDetails.color.toString(), flex: 1}}>
                 <View testID={"HeaderButtons"} style={styles.headerButtonContainer}>
                     <View style={{flex:1, alignItems:'flex-start'}}>

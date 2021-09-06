@@ -5,10 +5,12 @@ import { getPokemons } from '../store/actions/pokemons';
 import FooterButtons from '../components/FooterButtons';
 import LoadingView from '../components/LoadingView';
 import PokemonCard from '../components/PokemonCard';
+import ErrorView from '../components/ErrorView';
 
 const PokedexScreen = () =>{
     const pokemons = useSelector((state) => state.Pokemons.pokemons);
     const length = useSelector((state) => state.Pokemons.count);
+    const hasError = useSelector((state) => state.Pokemons.hasError);
     const themeColor = useSelector((state) => state.Settings.color);
     const [offset, setOffset] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -58,13 +60,6 @@ const PokedexScreen = () =>{
         setIsLoading(true)
     };
 
-    /*const displaySelectedPage = async(pageNumber) =>{
-        setIsLoading(false)
-        offset = (pagenumber * 20) - 20
-        await dispatch(getPokemons(offset));
-        setIsLoading(true)
-    };*/
-
     const renderFooter = () => {
         return (<FooterButtons next={()=>nextData()} prev={()=>prevData()} offset={offset} length={length}/>);
     };
@@ -74,15 +69,18 @@ const PokedexScreen = () =>{
         { isLoading ? 
             <LoadingView text={"Loading..."}/>
             : 
-            <FlatList
-                data = {formatData(pokemons, 2)}
-                renderItem = {renderItem}
-                keyExtractor={item => item.name}
-                numColumns={2}
-                style={{backgroundColor: themeColor == 'black' ? '#333231': 'rgb(245, 245, 240)'}}
-                contentContainerStyle={{flexGrow: 1}}
-                ListFooterComponent={renderFooter}
-            />
+            hasError ? 
+                <ErrorView text={"Something went wrong please try again !!"} />
+                :
+                <FlatList
+                    data = {formatData(pokemons, 2)}
+                    renderItem = {renderItem}
+                    keyExtractor={item => item.name}
+                    numColumns={2}
+                    style={{backgroundColor: themeColor == 'black' ? '#333231': 'rgb(245, 245, 240)'}}
+                    contentContainerStyle={{flexGrow: 1}}
+                    ListFooterComponent={renderFooter}
+                />
         }
     </>
     )
