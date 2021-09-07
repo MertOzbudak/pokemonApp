@@ -1,16 +1,17 @@
 import React from 'react';
 import {View, Text, StyleSheet, Dimensions } from 'react-native';
+import * as constants from '../constants/constant';
 
 export default function ShadowContainer({height, weight}) {
 
     return (
     <View style={styles.shadowContainer}>
         <View testID="height" style={styles.heightDiv}>
-            <Text>Height:</Text>
+            <Text>{constants.title.height}</Text>
             <Text>{height/10} m</Text>
         </View>
         <View  testID="Weight" style={styles.weightDiv}>
-            <Text>Weight:</Text>
+            <Text>{constants.title.weight}</Text>
             <Text>{weight/10} kg</Text>
         </View>
     </View>

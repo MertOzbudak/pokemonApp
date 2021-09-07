@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {View, Text,Dimensions,TouchableOpacity, Image, ImageBackground, ActivityIndicator} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { IMAGE_URL, PNG } from '../constants/constant';
 
 export default function PokemonCard({ item }) {
       const [imageId, setImageId] = useState("");
@@ -39,7 +40,7 @@ export default function PokemonCard({ item }) {
         }}>
            <TouchableOpacity onPress={()=> navigation.navigate("DetailScreen", {id: imageId})}>
             <ImageBackground
-              source={{ uri: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+ imageId +'.png'}} 
+              source={{ uri: IMAGE_URL + imageId + PNG}} 
               style={{width: 70, height: 70,}}
               imageStyle={{width: 70, height: 70,}}
               onLoadEnd={() =>  setImageLoading(false)}

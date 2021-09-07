@@ -5,6 +5,7 @@ import PokemonCard from '../components/PokemonCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native'
 import EmptyBagView from '../components/EmptyBagView';
+import * as constants from '../constants/constant';
 
 const BagScreen = () =>{
     const  caughtPokemons = useSelector((state) => state.Bag.caughtPokemons);
@@ -27,7 +28,7 @@ const BagScreen = () =>{
         <>
         { 
             isEmpty ? 
-                <EmptyBagView text={"Bag is Empty"} themeColor={themeColor}/>
+                <EmptyBagView text={constants.message.bagEmpty} themeColor={themeColor}/>
                 : 
                 <FlatList
                     data = {caughtPokemons}

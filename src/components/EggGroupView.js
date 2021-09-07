@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Dimensions, FlatList } from 'react-native';
 import CapsulView from '../components/CapsulView';
+import * as constants from '../constants/constant';
 
 export default function EggGroupView({eggGroups}) {
 
@@ -9,7 +10,7 @@ export default function EggGroupView({eggGroups}) {
     return (
         <View testID={"HeaderTypeAndGenera"} style={styles.container}>
             <View style={styles.divOne}>
-                <Text>EggGroups:</Text>
+                <Text>{constants.title.eggGroups}</Text>
             </View>
             <FlatList
                 data = {eggGroups}

@@ -6,6 +6,7 @@ import FooterButtons from '../components/FooterButtons';
 import LoadingView from '../components/LoadingView';
 import PokemonCard from '../components/PokemonCard';
 import ErrorView from '../components/ErrorView';
+import * as constants from '../constants/constant';
 
 const PokedexScreen = () =>{
     const pokemons = useSelector((state) => state.Pokemons.pokemons);
@@ -16,7 +17,6 @@ const PokedexScreen = () =>{
     const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
     const renderItem = ({ item }) =>  <PokemonCard item = {item}/>;  
-    //const [refresh, setRefresh] = useState(0);
 
     useEffect(() => {
         getAllPokemons();
@@ -67,10 +67,10 @@ const PokedexScreen = () =>{
     return (
     <>
         { isLoading ? 
-            <LoadingView text={"Loading..."}/>
+            <LoadingView text={constants.message.loading}/>
             : 
             hasError ? 
-                <ErrorView text={"Something went wrong please try again !!"} />
+                <ErrorView text={constants.message.errorMsg} />
                 :
                 <FlatList
                     data = {formatData(pokemons, 2)}

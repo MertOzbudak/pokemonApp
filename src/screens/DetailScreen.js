@@ -14,7 +14,7 @@ import GeneraView from '../components/GeneraView';
 import PokemonImage from '../components/PokemonImage';
 import DetailBodyView from '../components/DetailBodyView';
 import HeaderInfoView from '../components/HeaderInfoView';
-
+import * as constants from '../constants/constant';
 
 const DetailScreen = (props) =>{
     const {id} = props.route.params;
@@ -56,10 +56,10 @@ const DetailScreen = (props) =>{
     return (
         <>
         { isLoading ? 
-            <LoadingView text={"Loading..."}/>
+            <LoadingView text={constants.message.loading}/>
         : 
         hasError ? 
-            <ErrorView text={"Something went wrong please try again !!"}/>
+            <ErrorView text={constants.message.errorMsg}/>
             :
             <View style={{backgroundColor: pokemonDetails.color.toString(), flex: 1}}>
                 <View testID={"HeaderButtons"} style={styles.headerButtonContainer}>

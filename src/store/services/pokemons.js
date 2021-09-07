@@ -1,15 +1,11 @@
-const ServiceURL = {
-    GET_POKEMONS:'https://pokeapi.co/api/v2/pokemon?offset=',
-    GET_POKEMON_DETAIL: 'https://pokeapi.co/api/v2/pokemon-species/',
-    GET_POKEMON_OTHER_DETAIL: 'https://pokeapi.co/api/v2/pokemon/'
-}
+import * as constants from '../../constants/constant';
 
 const getPokemons = async(offset) =>{
     try{
        
-       let response = await fetch(ServiceURL.GET_POKEMONS+offset+"&limit=20");
+       let response = await fetch(constants.serviceURL.GET_POKEMONS  + offset + constants.serviceURL.LIMIT);
    
-       response =  response.status == 200 ? await response.json() : 404;
+       response =  response.status == constants.status.success ? await response.json() : constants.status.fail;
        
        return response
 
@@ -22,9 +18,9 @@ const getPokemons = async(offset) =>{
 const getPokemonDetailsById = async(id) =>{
     try{
        
-       let response = await fetch(ServiceURL.GET_POKEMON_DETAIL + id );
+       let response = await fetch(constants.serviceURL.GET_POKEMON_DETAIL + id );
        
-       response = response.status == 200 ? await response.json() : 404;
+       response =  response.status == constants.status.success ? await response.json() : constants.status.fail;
        
        return response
 
@@ -37,9 +33,9 @@ const getPokemonDetailsById = async(id) =>{
 const getPokemonOtherDetailsById = async(id) =>{
     try{
        
-       let response = await fetch(ServiceURL.GET_POKEMON_OTHER_DETAIL + id );
+       let response = await fetch(constants.serviceURL.GET_POKEMON_OTHER_DETAIL + id );
 
-       response = response.status == 200 ? await response.json() : 404;
+       response =  response.status == constants.status.success ? await response.json() : constants.status.fail;
        
        return response
 

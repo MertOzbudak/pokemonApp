@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import {View,  ImageBackground, StyleSheet, ActivityIndicator } from 'react-native';
-
+import { IMAGE_URL, PNG } from '../constants/constant';
 
 export default function PokemonImage({id , imageloading, setImageLoading}) {
 
       return (
-        <View testID={"Image"}  style={{position:'absolute'}}>
+        <View testID={"Image"} style={styles.container}>
           <ImageBackground
-              source={{ uri: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+ id +'.png'}} 
+              source={{ uri: IMAGE_URL + id + PNG}} 
               style={styles.imageStyle}
               imageStyle={styles.imageStyle}
               onLoadEnd={() =>  setImageLoading(false)}
@@ -19,6 +19,9 @@ export default function PokemonImage({id , imageloading, setImageLoading}) {
 }
 
 const styles = StyleSheet.create({
+  container:{
+    position:'absolute'
+  },
   imageStyle:{
     width: 160, height: 160
   },
