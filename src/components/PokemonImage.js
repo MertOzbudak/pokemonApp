@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import {View,  ImageBackground, StyleSheet, ActivityIndicator } from 'react-native';
 
 
-export default function PokemonImage({id}) {
-
-    const [imageloading, setImageLoading] = useState(true);
+export default function PokemonImage({id , imageloading, setImageLoading}) {
 
       return (
         <View testID={"Image"}  style={{position:'absolute'}}>
