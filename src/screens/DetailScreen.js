@@ -11,6 +11,7 @@ import {window} from '../utils/styles'
 import { FlatList } from 'react-native';
 import LoadingView from '../components/LoadingView';
 import ErrorView from '../components/ErrorView';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const DetailScreen = (props) =>{
     const {id} = props.route.params;
@@ -23,7 +24,6 @@ const DetailScreen = (props) =>{
     const [imageloading, setImageLoading] = useState(true);
     const navigation = useNavigation();
 
-    console.log("sdad", hasError)
     const renderItem = ({ item }) =>  {
         return(
         <View style={{marginLeft:5, width:80, height:30, borderColor:'white', borderWidth:0.5, backgroundColor:'rgba(255,255,255,0.3)', borderRadius:10, justifyContent:'center', alignItems:'center'}}>
@@ -126,38 +126,38 @@ const DetailScreen = (props) =>{
                             {imageloading && <ActivityIndicator size="small" color={"orange"} style={{width: 50, height: 50}}/>}
                         </ImageBackground>
                     </View>
-                    
-                    <View testID="detailBodyContainer" style={styles.detailBodyContainer}>
-                        <View testID="header" style={{paddingTop:10}}>
-                            <Text style={{fontSize:20}}>About</Text>
-                        </View>
-                        <View testID="info" style={{marginTop:10}}>
-                            <Text>{pokemonDetails.info}</Text>
-                        </View>
-                        <View testID="heightWeight" style={styles.shadowContainer}>
-                            <View  testID="height" style={styles.heightDiv}>
-                                <Text>Height:</Text>
-                                <Text>{pokemonDetails.height/10} m</Text>
+                    <ScrollView>
+                        <View testID="detailBodyContainer" style={styles.detailBodyContainer}>
+                            <View testID="header" style={{paddingTop:10}}>
+                                <Text style={{fontSize:20}}>About</Text>
                             </View>
-                            <View  testID="Weight" style={styles.weightDiv}>
-                                <Text>Weight:</Text>
-                                <Text>{pokemonDetails.weight/10} kg</Text>
+                            <View testID="info" style={{marginTop:10}}>
+                                <Text>{pokemonDetails.info}</Text>
+                            </View>
+                            <View testID="heightWeight" style={styles.shadowContainer}>
+                                <View  testID="height" style={styles.heightDiv}>
+                                    <Text>Height:</Text>
+                                    <Text>{pokemonDetails.height/10} m</Text>
+                                </View>
+                                <View  testID="Weight" style={styles.weightDiv}>
+                                    <Text>Weight:</Text>
+                                    <Text>{pokemonDetails.weight/10} kg</Text>
+                                </View>
+                            </View>
+                            <View testID={"HeaderTypeAndGenera"} style={styles.headerTypeContainer}>
+                                <View style={{flex:0.8, alignItems:'flex-end', right:10 }}>
+                                    <Text>EggGroups:</Text>
+                                </View>
+                                <FlatList
+                                    data = {pokemonDetails.eggGroups}
+                                    renderItem = {renderEggGroups}
+                                    keyExtractor={item=>item.name}
+                                    horizontal={true}
+                                    style={{flex:1}}
+                                />
                             </View>
                         </View>
-                        <View testID={"HeaderTypeAndGenera"} style={styles.headerTypeContainer}>
-                            {/*<View style={{flex:0.8, alignItems:'flex-end', right:10 }}>
-                                <Text>EggGroups:</Text>
-                            </View>
-                            <FlatList
-                                data = {pokemonDetails.eggGroups}
-                                renderItem = {renderEggGroups}
-                                keyExtractor={item=>item.name}
-                                horizontal={true}
-                                style={{flex:1}}
-                            />*/}
-                        </View>
-                    </View>
-                    
+                    </ScrollView>
                 </View>
                 { isCaughted  ?
                     <PokeButton action={()=>releasePokemonByID()} colour={'mediumseagreen'} text={"Release"}/>
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     detailBodyContainer:{
         backgroundColor:'white',
         width: window.width, 
-        height: window.height/1.2, 
+        height: window.height/1.6, 
         zIndex:-2,
         borderTopRightRadius:40, 
         borderTopLeftRadius:40,
