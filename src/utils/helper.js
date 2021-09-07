@@ -38,7 +38,7 @@ export function colorPicker(color){
           return '#cccccc'
       }
       case 'yellow': {
-          return '#ffd699'
+          return '#ffe066'
       }
       default:{
           return '#b3ffb3'

@@ -68,7 +68,7 @@ const DetailScreen = (props) =>{
                     </View>
                     <View style={{flex:1, alignItems:'flex-end'}}>
                     { isCaughted  ?
-                        <StarButton action={()=>toggleFav()} boolean={isFavourite}/>
+                        <StarButton action={()=>toggleFav()} boolean={isFavourite} backgroundColor={pokemonDetails.color.toString()}/>
                         :
                         <View></View>
                     }
